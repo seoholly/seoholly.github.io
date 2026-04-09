@@ -1,0 +1,25 @@
+title: "Holly (Hanbee) Seo"
+author: "Holly Seo"
+description: "University of St Andrews"
+permalink : /:title/
+lang: "en"
+excerpt_separator: "\n\n\n"
+date_format: "%B %d, %Y"
+
+# Layout
+
+show_social: true
+show_excerpts: true
+show_frame: true
+show_sidebar: false
+
+# Menu
+
+navigation: 
+  - {file: "index.html", icon: home}
+  - {file: "README.md", icon: address-card}
+
+external: 
+  - {title: Main, icon: envelope, url: "hs223@st-andrews.ac.uk"}
+  - {title: Github, icon: github, url: "https://github.com/seoholly/seoholly.github.io"}
+
