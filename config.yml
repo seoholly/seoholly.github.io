@@ -16,8 +16,8 @@ show_sidebar: false
 # Menu
 
 navigation: 
-  - {file: "index.html", icon: home}
-  - {file: "README.md", icon: address-card}
+  - {file: "index.html", title: "Home Change", icon: home}
+  - {file: "README.md", title: "About me", icon: address-card}
 
 external: 
   - {title: Main, icon: envelope, url: "hs223@st-andrews.ac.uk"}
