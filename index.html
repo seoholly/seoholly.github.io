@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holly (Hanbee) Seo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F7F5F0;
+    --ink: #1C1C1A;
+    --ink-muted: #5C5A55;
+    --ink-faint: #9E9C97;
+    --border: #E0DDD6;
+    --accent: #2E5E4E;
+    --accent-light: #EAF3EE;
+    --accent-mid: #4A8C74;
+    --highlight: #C8A96E;
+    --highlight-light: #FAF3E4;
+    --page-bg: #FAFAF7;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    background: var(--page-bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── Layout ── */
+  .wrapper {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ── Header / Nav ── */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,250,247,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .site-name {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+
+  .site-name span {
+    color: var(--accent);
+  }
+
+  nav { display: flex; gap: 2px; }
+
+  nav button {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink-muted);
+    background: none;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.01em;
+  }
+
+  nav button:hover {
+    color: var(--ink);
+    background: var(--cream);
+  }
+
+  nav button.active {
+    color: var(--accent);
+    background: var(--accent-light);
+    font-weight: 500;
+  }
+
+  /* ── Tabs ── */
+  .tab { display: none; }
+  .tab.active { display: block; }
+
+  /* ── HOME ── */
+  .hero {
+    padding: 4rem 0 3rem;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 4rem;
+    align-items: start;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-text h1 {
+    font-family: 'Lora', serif;
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .hero-text .role {
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .role::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1.5px;
+    background: var(--accent);
+  }
+
+  .hero-text p {
+    color: var(--ink-muted);
+    font-size: 15px;
+    line-height: 1.8;
+    max-width: 520px;
+    margin-bottom: 1.5rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 1.75rem;
+  }
+
+  .tag {
+    font-size: 12px;
+    padding: 4px 10px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--ink-muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .hero-links { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .btn {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    border: 1px solid var(--accent);
+  }
+
+  .btn-primary:hover { background: #224840; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ink-muted);
+    border: 1px solid var(--border);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--ink-muted);
+    color: var(--ink);
+    background: var(--cream);
+  }
+
+  .photo-box {
+    aspect-ratio: 3/4;
+    background: var(--cream);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--ink-faint);
+    font-size: 13px;
+  }
+
+  .photo-box .initials {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .photo-hint {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--ink-faint);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* News section */
+  .section {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1.25rem;
+  }
+
+  .news-list { display: flex; flex-direction: column; gap: 0; }
+
+  .news-item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 1.25rem;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: baseline;
+  }
+
+  .news-item:last-child { border-bottom: none; }
+
+  .news-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    padding-top: 2px;
+  }
+
+  .news-text {
+    font-size: 14px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  .news-text strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* ── RESEARCH ── */
+  .page-header {
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+  }
+
+  .page-header h2 {
+    font-family: 'Lora', serif;
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  .page-header p {
+    color: var(--ink-muted);
+    font-size: 14px;
+    max-width: 540px;
+    line-height: 1.7;
+  }
+
+  .pub-list { display: flex; flex-direction: column; gap: 0; }
+
+  .pub-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .pub-item:last-child { border-bottom: none; }
+
+  .pub-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-faint);
+    padding-top: 3px;
+  }
+
+  .pub-body h3 {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+
+  .pub-authors {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-bottom: 3px;
+  }
+
+  .pub-authors strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .pub-venue {
+    font-size: 13px;
+    color: var(--accent-mid);
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+
+  .pub-links { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--ink-muted);
+    cursor: pointer;
+    background: white;
+    text-decoration: none;
+    transition: all 0.12s;
+  }
+
+  .pill:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  /* ── CV ── */
+  .cv-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0 3rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .cv-grid:last-child { border-bottom: none; }
+
+  .cv-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 3px;
+  }
+
+  .cv-entry { margin-bottom: 1.25rem; }
+  .cv-entry:last-child { margin-bottom: 0; }
+
+  .cv-entry h3 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .cv-entry .inst {
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  .cv-entry .period {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin-bottom: 4px;
+  }
+
+  /* ── BLOG ── */
+  .post-list { display: flex; flex-direction: column; }
+
+  .post-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 1.25rem;
+    align-items: baseline;
+    cursor: pointer;
+  }
+
+  .post-item:last-child { border-bottom: none; }
+
+  .post-item:hover h3 { color: var(--accent); }
+
+  .post-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    padding-top: 3px;
+  }
+
+  .post-body h3 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+    transition: color 0.12s;
+  }
+
+  .post-body p {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  .post-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 2px 7px;
+    background: var(--highlight-light);
+    color: #8a6a30;
+    border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* ── CONTACT ── */
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+  }
+
+  .contact-block h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1rem;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.625rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact-row:last-child { border-bottom: none; }
+
+  .contact-icon {
+    width: 28px;
+    height: 28px;
+    background: var(--cream);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .contact-info .clabel {
+    font-size: 11px;
+    color: var(--ink-faint);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .contact-info .cvalue {
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  .contact-info a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .contact-info a:hover { text-decoration: underline; }
+
+  .affil-card {
+    background: var(--cream);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  .affil-card p {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+
+  .affil-card .uni {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 700px) {
+    .hero { grid-template-columns: 1fr; gap: 2rem; }
+    .photo-box { aspect-ratio: 1/1; max-width: 200px; }
+    .contact-layout { grid-template-columns: 1fr; }
+    .cv-grid { grid-template-columns: 1fr; gap: 0.25rem; }
+    .header-inner { padding: 0 1rem; }
+    .wrapper { padding: 0 1rem; }
+    nav button { padding: 6px 8px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="site-name" href="#" onclick="showTab('home')">Holly <span>Seo</span></a>
+    <nav>
+      <button class="active" onclick="showTab('home', this)">Home</button>
+      <button onclick="showTab('research', this)">Research</button>
+      <button onclick="showTab('cv', this)">CV</button>
+      <button onclick="showTab('blog', this)">Notes</button>
+      <button onclick="showTab('contact', this)">Contact</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ══════════ HOME ══════════ -->
+<div class="tab active" id="tab-home">
+  <div class="wrapper">
+
+    <div class="hero">
+      <div class="hero-text">
+        <h1>Holly (Hanbee) Seo</h1>
+        <div class="role">University of St Andrews</div>
+        <p>
+          I'm a researcher at the University of St Andrews working in the natural sciences.
+          My work focuses on [your research focus here]. I'm interested in understanding
+          [key questions or themes] and developing [methods / approaches].
+        </p>
+        <div class="tags">
+          <span class="tag">topic one</span>
+          <span class="tag">topic two</span>
+          <span class="tag">topic three</span>
+          <span class="tag">St Andrews</span>
+        </div>
+        <div class="hero-links">
+          <a class="btn btn-primary" href="mailto:hs223@st-andrews.ac.uk">✉ Email me</a>
+          <a class="btn btn-outline" href="https://github.com/seoholly" target="_blank">GitHub</a>
+          <a class="btn btn-outline" href="#" onclick="showTab('cv')">CV</a>
+        </div>
+      </div>
+
+      <div class="photo-box">
+        <!-- Replace this div with: <img src="photo.jpg" alt="Holly Seo" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"> -->
+        <div class="initials">HS</div>
+        <div class="photo-hint">Replace with your photo<br>photo.jpg</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Recent news</div>
+      <div class="news-list">
+        <div class="news-item">
+          <div class="news-date">Mar 2026</div>
+          <div class="news-text"><strong>New paper submitted.</strong> Working on a manuscript about [topic] — details soon.</div>
+        </div>
+        <div class="news-item">
+          <div class="news-date">Jan 2026</div>
+          <div class="news-text"><strong>Talk at [seminar/event].</strong> Presented work on [topic] to [audience/group].</div>
+        </div>
+        <div class="news-item">
+          <div class="news-date">Sep 2025</div>
+          <div class="news-text"><strong>New academic year.</strong> Starting [year] with a focus on [new project or direction].</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ RESEARCH ══════════ -->
+<div class="tab" id="tab-research">
+  <div class="wrapper">
+
+    <div class="page-header">
+      <h2>Research</h2>
+      <p>My research spans [broad area]. I'm particularly interested in [specific focus], with the goal of [overarching question or aim].</p>
+    </div>
+
+    <div class="section-label">Publications</div>
+    <div class="pub-list">
+
+      <div class="pub-item">
+        <div class="pub-year">2025</div>
+        <div class="pub-body">
+          <h3>Your paper title goes here</h3>
+          <div class="pub-authors"><strong>Holly Seo</strong>, Co-author A, Co-author B</div>
+          <div class="pub-venue">Journal or Conference Name, 2025</div>
+          <div class="pub-links">
+            <a class="pill" href="#">PDF</a>
+            <a class="pill" href="#">Code</a>
+            <a class="pill" href="#">Abstract</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2024</div>
+        <div class="pub-body">
+          <h3>Another paper or preprint title</h3>
+          <div class="pub-authors"><strong>Holly Seo</strong>, Co-author A</div>
+          <div class="pub-venue">Preprint / arXiv, 2024</div>
+          <div class="pub-links">
+            <a class="pill" href="#">PDF</a>
+            <a class="pill" href="#">Data</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-year">2023</div>
+        <div class="pub-body">
+          <h3>Earlier work or thesis chapter</h3>
+          <div class="pub-authors"><strong>Holly Seo</strong>, Supervisor Name</div>
+          <div class="pub-venue">Thesis / Technical Report, 2023</div>
+          <div class="pub-links">
+            <a class="pill" href="#">PDF</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CV ══════════ -->
+<div class="tab" id="tab-cv">
+  <div class="wrapper">
+
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <h2>Curriculum Vitae</h2>
+        <p>Natural scientist at the University of St Andrews.</p>
+      </div>
+      <a class="btn btn-outline" href="cv.pdf" download>↓ Download PDF</a>
+    </div>
+
+    <div class="cv-grid">
+      <div class="cv-label">Education</div>
+      <div>
+        <div class="cv-entry">
+          <div class="period">2023 – present</div>
+          <h3>PhD, [Your Department]</h3>
+          <div class="inst">University of St Andrews, St Andrews, Scotland<br>Supervisor: Prof. [Name]</div>
+        </div>
+        <div class="cv-entry">
+          <div class="period">2019 – 2023</div>
+          <h3>BSc / MSc, [Subject]</h3>
+          <div class="inst">[Your undergraduate university]<br>Graduated with [honours/distinction/grade]</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-grid">
+      <div class="cv-label">Experience</div>
+      <div>
+        <div class="cv-entry">
+          <div class="period">Summer 2024</div>
+          <h3>Research Intern · [Lab or Company]</h3>
+          <div class="inst">Worked on [topic or project]. Mentored by [name].</div>
+        </div>
+        <div class="cv-entry">
+          <div class="period">2022 – 2023</div>
+          <h3>Research Assistant · [Institution]</h3>
+          <div class="inst">[Brief description of role and responsibilities].</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-grid">
+      <div class="cv-label">Teaching</div>
+      <div>
+        <div class="cv-entry">
+          <div class="period">2024</div>
+          <h3>Teaching Assistant · [Module Name]</h3>
+          <div class="inst">University of St Andrews. Led tutorials and marked coursework.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-grid">
+      <div class="cv-label">Awards &amp; Grants</div>
+      <div>
+        <div class="cv-entry">
+          <div class="period">2023</div>
+          <h3>[Scholarship or Award Name]</h3>
+          <div class="inst">[Awarding body]. [Brief description if needed].</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-grid">
+      <div class="cv-label">Skills</div>
+      <div style="padding-top: 0.25rem;">
+        <div class="tags" style="margin-bottom:0;">
+          <span class="tag">Python</span>
+          <span class="tag">R</span>
+          <span class="tag">MATLAB</span>
+          <span class="tag">[Lab skill]</span>
+          <span class="tag">[Tool]</span>
+          <span class="tag">LaTeX</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ BLOG / NOTES ══════════ -->
+<div class="tab" id="tab-blog">
+  <div class="wrapper">
+
+    <div class="page-header">
+      <h2>Notes &amp; Writing</h2>
+      <p>Occasional notes on research, methods, and things I'm learning. Nothing too polished — mostly for my own clarity.</p>
+    </div>
+
+    <div class="post-list">
+
+      <div class="post-item">
+        <div class="post-date">Apr 2026</div>
+        <div class="post-body">
+          <h3>Post title here <span class="post-tag">methods</span></h3>
+          <p>A short description of what this note covers. What did you learn or want to share?</p>
+        </div>
+      </div>
+
+      <div class="post-item">
+        <div class="post-date">Feb 2026</div>
+        <div class="post-body">
+          <h3>Another note or explainer <span class="post-tag">reading</span></h3>
+          <p>Brief summary of the post. Keeps visitors informed about what they'll find inside.</p>
+        </div>
+      </div>
+
+      <div class="post-item">
+        <div class="post-date">Nov 2025</div>
+        <div class="post-body">
+          <h3>Something I found interesting in [topic]</h3>
+          <p>A reflection, a paper summary, or a short tutorial on something you explored.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CONTACT ══════════ -->
+<div class="tab" id="tab-contact">
+  <div class="wrapper">
+
+    <div class="page-header">
+      <h2>Contact</h2>
+      <p>Happy to hear from collaborators, students, or anyone interested in the work.</p>
+    </div>
+
+    <div class="contact-layout">
+      <div class="contact-block">
+        <h3>Get in touch</h3>
+        <div class="contact-row">
+          <div class="contact-icon">✉</div>
+          <div class="contact-info">
+            <div class="clabel">Email</div>
+            <div class="cvalue"><a href="mailto:hs223@st-andrews.ac.uk">hs223@st-andrews.ac.uk</a></div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">&#xe1b0;</div>
+          <div class="contact-info">
+            <div class="clabel">GitHub</div>
+            <div class="cvalue"><a href="https://github.com/seoholly" target="_blank">github.com/seoholly</a></div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">&#x1f4cd;</div>
+          <div class="contact-info">
+            <div class="clabel">Location</div>
+            <div class="cvalue">St Andrews, Scotland</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-block">
+        <h3>Affiliation</h3>
+        <div class="affil-card">
+          <div class="uni">University of St Andrews</div>
+          <p>
+            School of [Your School]<br>
+            [Building / Room if you want]<br>
+            St Andrews, KY16 9ST<br>
+            Scotland, United Kingdom
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrapper">
+    © 2026 Holly (Hanbee) Seo &nbsp;·&nbsp; University of St Andrews
+  </div>
+</footer>
+
+<script>
+  function showTab(name, btn) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    if (btn) {
+      btn.classList.add('active');
+    } else {
+      const btns = document.querySelectorAll('nav button');
+      const labels = ['home','research','cv','blog','contact'];
+      const i = labels.indexOf(name);
+      if (i >= 0) btns[i].classList.add('active');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
